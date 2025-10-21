@@ -35,6 +35,7 @@ jobs:
         shell: bash
         run: |
           set -x # Fail on error
+          uv venv
           source .venv/bin/activate
           maturin develop --uv
           pytest
