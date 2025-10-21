@@ -63,7 +63,7 @@ jobs:
       - name: Build and test
         shell: bash
         run: |
-          if [ "${{ needs.pytest_fast.outputs.pytest_exit_code }}" = "0" ]; then
+          if [ "${{ needs.pytest_fast_run.outputs.pytest_exit_code }}" = "0" ]; then
             echo "Pytest failed"
             exit 1
           else
