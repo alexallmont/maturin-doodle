@@ -48,7 +48,6 @@ jobs:
       - name: Build and test
         shell: bash
         run: |
-          set -e # Fail on error
           uv venv
           source .venv/bin/activate
           maturin develop --uv --extras dev
