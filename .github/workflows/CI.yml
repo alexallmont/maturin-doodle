@@ -19,9 +19,8 @@ permissions:
   contents: read
 
 jobs:
-  early_cancel_test:
-    name: Test python without wheel to quickly cancel other jobs if error
-    continue-on-error: false
+  pytest_ok:
+    name: Test python without wheel as prerequisite to building wheels
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -47,6 +46,7 @@ jobs:
 
   linux:
     runs-on: ${{ matrix.platform.runner }}
+    needs: pytest_ok
     strategy:
       matrix:
         platform:
@@ -83,6 +83,7 @@ jobs:
 
   musllinux:
     runs-on: ${{ matrix.platform.runner }}
+    needs: pytest_ok
     strategy:
       matrix:
         platform:
@@ -115,6 +116,7 @@ jobs:
 
   windows:
     runs-on: ${{ matrix.platform.runner }}
+    needs: pytest_ok
     strategy:
       matrix:
         platform:
@@ -143,6 +145,7 @@ jobs:
 
   macos:
     runs-on: ${{ matrix.platform.runner }}
+    needs: pytest_ok
     strategy:
       matrix:
         platform:
@@ -170,6 +173,7 @@ jobs:
 
   sdist:
     runs-on: ubuntu-latest
+    needs: pytest_ok
     steps:
       - uses: actions/checkout@v4
       - name: Build sdist
