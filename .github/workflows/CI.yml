@@ -44,6 +44,7 @@ jobs:
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - name: Build and test
+        id: result
         shell: bash
         run: |
           uv venv
@@ -51,8 +52,7 @@ jobs:
           maturin develop --uv --extras dev
           set +e # Error trapping disabled so job finishes for post-job caching
           pytest -s -v
-          EXIT_CODE=$? # Storing as var here ensures output is a string not an int
-          echo "pytest_exit_code=$EXIT_CODE" >> "$GITHUB_OUTPUT"
+          echo "pytest_exit_code=$?" >> "$GITHUB_OUTPUT"
           set -e
 
   linux:
