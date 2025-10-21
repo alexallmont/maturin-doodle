@@ -19,7 +19,7 @@ permissions:
   contents: read
 
 jobs:
-  pytest_run:
+  pytest_fast_run:
     name: Run pytest for fast reject before building wheels
     runs-on: ubuntu-latest
     outputs:
@@ -58,7 +58,7 @@ jobs:
   pytest_ok:
     name: Convert pytest run to 'needs' for wheels build
     runs-on: ubuntu-latest
-    needs: pytest_fast
+    needs: pytest_fast_run
     steps:
       - name: Build and test
         shell: bash
